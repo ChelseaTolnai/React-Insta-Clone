@@ -1,28 +1,31 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import Authenticate from './components/Authentication/Authenticate';
+import Login from './components/Login/Login';
+import PostsPage from './components/PostContainer/PostsPage';
+import styled from 'styled-components'
 import './App.css';
 
+const StyledApp = styled.div`
+  margin: 0 auto;
+  width: 100%;
+  background-color: rgb(85, 225, 200);
+  font-family: 'Open Sans', sans-serif;
+`
+
 class App extends Component {
+
+  constructor() {
+    super();
+    this.state = {}
+  }
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <StyledApp>
+        <PostsPage />
+      </StyledApp>
     );
   }
 }
 
-export default App;
+export default Authenticate(App)(Login);
