@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import ls from 'local-storage';
+import Fuse from 'fuse.js';
 import dummyData from '../../dummy-data';
 import SearchBar from '../SearchBar/SearchBar';
 import PostContainer from './PostContainer';
@@ -19,12 +20,28 @@ class PostsPage extends Component {
         this.setState({ data: dummyData });
     }
     
-    handleSearch = (e) => {
-        const filterData = this.state.data.filter( data => {
-            return data.username.toLowerCase().includes(e.target.value.toLowerCase())
-        });
+    handleSearch = (e) => {        
+        const options = {
+            shouldSort: true,
+            tokenize: true,
+            threshold: 0.4,
+            location: 0,
+            distance: 100,
+            maxPatternLength: 30,
+            minMatchCharLength: 0,
+            keys: [
+                "username",
+                "comments.username",
+                "comments.text"
+            ]
+            };
+        const fuse = new Fuse(this.state.data, options);
+        const results = fuse.search(e.target.value);
+        // const filterData = this.state.data.filter( data => {
+        //     return data.username.toLowerCase().includes(e.target.value.toLowerCase())
+        // });
         this.setState({
-            filteredData: filterData,
+            filteredData: results,
             searchTitle: e.target.value
         });
     }
