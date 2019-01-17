@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Input } from 'reactstrap';
 import { LrgIcon, ActionIcon } from '../ReusableStyles/ReusableStyles';
 import styled from 'styled-components';
+import 'font-awesome/css/font-awesome.min.css';
 
 const Header = styled.header`
     display: flex;
